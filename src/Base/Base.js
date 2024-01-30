@@ -53,12 +53,12 @@ const Base = ({ title, description, children }) => {
           
         </div>
       </div>
-          <div>
-            <p className="foot"> Copyright <i class="fa fa-copyright fa-1x" aria-hidden="true"></i> your website 2023</p>
-          </div>
+          
 
       
     </div>
+
+    
   )
 }
 
