@@ -1,18 +1,15 @@
-
 import { Switch,Route } from 'react-router-dom';
 import './App.css';
-// import Base from './Base/Base'
 import Students from './Components/Students.js';
 import AddStudents from './Components/AddStudents';
 import UpdateStudents from './Components/UpdateStudents';
-// import data from './Data/data';
-import { useEffect, useState } from 'react';
-// import Nopage from './Components/Nopage';
+import { createContext, useEffect, useState } from 'react';
 import DashBoard from './Components/DashBoard';
-import { Redirect } from 'react-router-dom';
 import Teachers from './Components/Teachers.js';
 import AddTeachers from './Components/AddTeachers.js';
 import UpdateTeachers from './Components/UpdateTeachers.js';
+
+const StudentContext = createContext(null);
 
 function App() {
   const [students, setStudents] = useState([]);
@@ -47,6 +44,26 @@ function App() {
 
   return (
     <div className="App">
+
+      <StudentContext.Provider
+      value ={{
+        students,
+        setStudents,
+        teachers, 
+        setTeachers
+      }}
+      
+      >
+        <Students/>
+        <Teachers/>
+        <AddStudents/>
+        <AddTeachers/>
+        <UpdateStudents/>
+        <UpdateTeachers/>
+
+      </StudentContext.Provider>
+
+      
        <Switch>
         {/* Exact path first page to load */}
          <Route exact path="/">
@@ -54,55 +71,31 @@ function App() {
          </Route>
 
           <Route path="/students">
-            <Students
-            students = {students}
-            setStudents ={setStudents}
-            />
+            <Students/>
           </Route>
 
           <Route path="/teachers">
-            <Teachers
-            teachers = {teachers}
-            setTeachers ={setTeachers}
-            />
+            <Teachers/>
           </Route>
 
-          <Route path="/details">
-             <Redirect to ="/students"/>
-          </Route>
-
+          
          <Route path="/add">
-            <AddStudents
-            students = {students}
-            setStudents ={setStudents}
-            />
+            <AddStudents/>
          </Route>
 
          <Route path="/addnew">
-            <AddTeachers
-            teachers = {teachers}
-            setTeachers = {setTeachers}
-            />
+            <AddTeachers/>
          </Route>
 
          <Route path="/edit/:id">
-            <UpdateStudents
-              students = {students}
-              setStudents ={setStudents}
-            />
+            <UpdateStudents/>
          </Route>
 
          <Route path="/editt/:id">
-            <UpdateTeachers
-              teachers = {teachers}
-              setTeachers ={setTeachers}
-            />
+            <UpdateTeachers/>
          </Route>
 
-          {/* <Route path="**">
-              <Nopage/>
-          </Route> */}
-
+         
        </Switch>
     </div>
   );
