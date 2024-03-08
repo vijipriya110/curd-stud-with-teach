@@ -3,17 +3,18 @@ import './App.css';
 import Students from './Components/Students.js';
 import AddStudents from './Components/AddStudents';
 import UpdateStudents from './Components/UpdateStudents';
-import { createContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import DashBoard from './Components/DashBoard';
 import Teachers from './Components/Teachers.js';
 import AddTeachers from './Components/AddTeachers.js';
 import UpdateTeachers from './Components/UpdateTeachers.js';
+import { MyContext } from './Components/MyContext.js';
 
-const StudentContext = createContext(null);
+
+
 
 function App() {
-  const [students, setStudents] = useState([]);
-  const [teachers, setTeachers] = useState([]);
+  const { setStudents, setTeachers} = useContext(MyContext);
 
   useEffect(()=>{
     const getStudents = async () =>{
@@ -45,24 +46,7 @@ function App() {
   return (
     <div className="App">
 
-      <StudentContext.Provider
-      value ={{
-        students,
-        setStudents,
-        teachers, 
-        setTeachers
-      }}
       
-      >
-        <Students/>
-        <Teachers/>
-        <AddStudents/>
-        <AddTeachers/>
-        <UpdateStudents/>
-        <UpdateTeachers/>
-
-      </StudentContext.Provider>
-
       
        <Switch>
         {/* Exact path first page to load */}

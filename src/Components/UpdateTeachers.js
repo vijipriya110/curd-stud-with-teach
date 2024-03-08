@@ -4,6 +4,8 @@ import Base from '../Base/Base';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup'
 import { useFormik } from 'formik'
+import { useContext } from 'react';
+import { MyContext } from './MyContext';
 
 
 const feildValidationShema = yup.object({
@@ -12,26 +14,14 @@ const feildValidationShema = yup.object({
   gender : yup.string().required("Please spcify the gender"),
   qualification : yup.string().required("please enter the qualification"),
 
-
 }) 
 
+function UpdateTeachers() {
 
-
-function UpdateTeachers({teachers, setTeachers}) {
+    const {teachers, setTeachers} = useContext(MyContext);
     const {id} = useParams();
-     const editTeacher = teachers[id]
-    // const [name, setName] = useState("")
-    // const [batch, setBatch] = useState("")
-    // const [gender, setGender] = useState("")
-    // const [qualification, setQualification] = useState("")
+    const editTeacher = teachers[id]
     const history = useHistory();
-
-    // useEffect(()=>{
-    //    setName(editTeacher.name)
-    //    setBatch(editTeacher.batch)
-    //    setGender(editTeacher.gender)
-    //    setQualification(editTeacher.qualification)
-    // }, [editTeacher])
 
     const {handleSubmit,handleChange,values,handleBlur,touched,errors} = useFormik({
       initialValues : {
@@ -49,12 +39,7 @@ function UpdateTeachers({teachers, setTeachers}) {
     })
 
     async function updateTeacher (updatedObject){
-        //  const updatedObject = {
-        //     name : name,
-        //     batch : batch,
-        //     gender: gender,
-        //     qualification :qualification
-        //  }
+        
      const response = await fetch(`https://646202d9185dd9877e48af11.mockapi.io/teachers/${editTeacher.id}`, {
       method:"PUT",
       body:JSON.stringify(updatedObject),

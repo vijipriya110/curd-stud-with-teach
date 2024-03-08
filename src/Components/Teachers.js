@@ -1,14 +1,13 @@
-// import React, { useState } from 'react'
+import { useContext } from 'react';
 import Base from '../Base/Base'
-// import data from '../Data/data'
-// import AddStudents from './AddStudents';
-// import UpdateStudents from './UpdateStudents';
 import { useHistory } from 'react-router-dom';
+import { MyContext } from './MyContext';
 
-function Teachers({teachers, setTeachers}) {
-   const history = useHistory();
+function Teachers() {
+  const { teachers, setTeachers} = useContext(MyContext);
+  const history = useHistory();
     // delete functionality
-    const deleteTeacher = async (teachId)=>{
+  const deleteTeacher = async (teachId)=>{
       
       const response = await fetch(`https://646202d9185dd9877e48af11.mockapi.io/teachers/${teachId}`, {
          method:"DELETE",

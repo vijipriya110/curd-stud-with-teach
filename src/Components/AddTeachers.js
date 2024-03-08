@@ -1,8 +1,9 @@
-// import React, { useState } from 'react'
 import Base from '../Base/Base'
 import { useHistory } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
+import { useContext } from 'react'
+import { MyContext } from './MyContext'
 
 const feildValidationShema = yup.object({
   name : yup.string().required("Please Enter the Student name"),
@@ -14,7 +15,8 @@ const feildValidationShema = yup.object({
 }) 
 
 
-function AddTeachers({teachers, setTeachers}) {
+function AddTeachers() {
+  const {teachers, setTeachers} = useContext(MyContext);
   const history = useHistory()
 
   const {handleSubmit,handleChange,values,handleBlur,touched,errors} = useFormik({
@@ -32,19 +34,8 @@ function AddTeachers({teachers, setTeachers}) {
     },
   })
 
-    // const [name, setName] = useState("")
-    // const [batch, setBatch] = useState("")
-    // const [gender, setGender] = useState("")
-    // const [qualification, setQualification] = useState("")
-
 const createTeacher = async (newTeachers) =>{
-    // creating object from input states
-//     const newTeachers = {
-//       name:name,
-//       batch:batch,
-//       qualification:qualification,
-//       gender: gender,
-// }
+    
 
 const response = await fetch("https://646202d9185dd9877e48af11.mockapi.io/teachers", {
   method:"POST",
